@@ -4,72 +4,141 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 ## Components
 
-- **17 Agents** - Specialized AI agents for code review, research, and analysis
-- **6 Commands** - Slash commands for common workflows
-- **1 Skill** - Image generation with Gemini API
+| Component | Count |
+|-----------|-------|
+| Agents | 24 |
+| Commands | 15 |
+| Skills | 11 |
 
 ## Agents
 
-### Code Review
-- **kieran-rails-reviewer** - Rails code review with strict conventions
-- **kieran-python-reviewer** - Python code review with strict conventions
-- **kieran-typescript-reviewer** - TypeScript code review with strict conventions
-- **dhh-rails-reviewer** - Rails review from DHH's perspective
-- **code-simplicity-reviewer** - Final pass for simplicity and minimalism
+Agents are organized into categories for easier discovery.
 
-### Analysis & Research
-- **framework-docs-researcher** - Research framework documentation and best practices
-- **best-practices-researcher** - Gather external best practices and examples
-- **pattern-recognition-specialist** - Analyze code for patterns and anti-patterns
-- **repo-research-analyst** - Research repository structure and conventions
-- **git-history-analyzer** - Analyze git history and code evolution
+### Review (10)
 
-### Architecture & Security
-- **architecture-strategist** - Analyze architectural decisions and compliance
-- **security-sentinel** - Security audits and vulnerability assessments
-- **performance-oracle** - Performance analysis and optimization
-- **data-integrity-guardian** - Database migrations and data integrity
+| Agent | Description |
+|-------|-------------|
+| `architecture-strategist` | Analyze architectural decisions and compliance |
+| `code-simplicity-reviewer` | Final pass for simplicity and minimalism |
+| `data-integrity-guardian` | Database migrations and data integrity |
+| `dhh-rails-reviewer` | Rails review from DHH's perspective |
+| `kieran-rails-reviewer` | Rails code review with strict conventions |
+| `kieran-python-reviewer` | Python code review with strict conventions |
+| `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
+| `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
+| `performance-oracle` | Performance analysis and optimization |
+| `security-sentinel` | Security audits and vulnerability assessments |
 
-### Workflow
-- **every-style-editor** - Edit content to conform to Every's style guide
-- **pr-comment-resolver** - Address PR comments and implement fixes
-- **feedback-codifier** - Codify feedback patterns into reviewer agents
+### Research (4)
+
+| Agent | Description |
+|-------|-------------|
+| `best-practices-researcher` | Gather external best practices and examples |
+| `framework-docs-researcher` | Research framework documentation and best practices |
+| `git-history-analyzer` | Analyze git history and code evolution |
+| `repo-research-analyst` | Research repository structure and conventions |
+
+### Design (3)
+
+| Agent | Description |
+|-------|-------------|
+| `design-implementation-reviewer` | Verify UI implementations match Figma designs |
+| `design-iterator` | Iteratively refine UI through systematic design iterations |
+| `figma-design-sync` | Synchronize web implementations with Figma designs |
+
+### Workflow (6)
+
+| Agent | Description |
+|-------|-------------|
+| `bug-reproduction-validator` | Systematically reproduce and validate bug reports |
+| `every-style-editor` | Edit content to conform to Every's style guide |
+| `feedback-codifier` | Codify feedback patterns into reviewer agents |
+| `lint` | Run linting and code quality checks on Ruby and ERB files |
+| `pr-comment-resolver` | Address PR comments and implement fixes |
+| `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
+
+### Docs (1)
+
+| Agent | Description |
+|-------|-------------|
+| `ankane-readme-writer` | Create READMEs following Ankane-style template for Ruby gems |
 
 ## Commands
 
-- **/review** - Run a comprehensive code review
-- **/plan** - Create an implementation plan
-- **/work** - Execute work items systematically
-- **/triage** - Triage issues and prioritize work
-- **/resolve_todo_parallel** - Resolve todos in parallel
-- **/generate_command** - Generate new slash commands
+### Workflow Commands
+
+Access via `/workflows:command`:
+
+| Command | Description |
+|---------|-------------|
+| `/workflows:plan` | Create implementation plans |
+| `/workflows:review` | Run comprehensive code reviews |
+| `/workflows:work` | Execute work items systematically |
+| `/workflows:codify` | Document solved problems for knowledge base |
+
+### Utility Commands
+
+| Command | Description |
+|---------|-------------|
+| `/changelog` | Create engaging changelogs for recent merges |
+| `/create-agent-skill` | Create or edit Claude Code skills |
+| `/generate_command` | Generate new slash commands |
+| `/heal-skill` | Fix skill documentation issues |
+| `/plan_review` | Multi-agent plan review in parallel |
+| `/prime` | Prime/setup command |
+| `/reproduce-bug` | Reproduce bugs using logs and console |
+| `/resolve_parallel` | Resolve TODO comments in parallel |
+| `/resolve_pr_parallel` | Resolve PR comments in parallel |
+| `/resolve_todo_parallel` | Resolve todos in parallel |
+| `/triage` | Triage and prioritize issues |
 
 ## Skills
 
-### gemini-imagegen
-Generate and edit images using Google's Gemini API.
+### Development Tools
 
-**Features:**
+| Skill | Description |
+|-------|-------------|
+| `andrew-kane-gem-writer` | Write Ruby gems following Andrew Kane's patterns |
+| `codify-docs` | Capture solved problems as categorized documentation |
+| `create-agent-skills` | Expert guidance for creating Claude Code skills |
+| `dhh-ruby-style` | Write Ruby/Rails code in DHH's 37signals style |
+| `dspy-ruby` | Build type-safe LLM applications with DSPy.rb |
+| `frontend-design` | Create production-grade frontend interfaces |
+| `skill-creator` | Guide for creating effective Claude Code skills |
+
+### Content & Workflow
+
+| Skill | Description |
+|-------|-------------|
+| `every-style-editor` | Review copy for Every's style guide compliance |
+| `file-todos` | File-based todo tracking system |
+| `git-worktree` | Manage Git worktrees for parallel development |
+
+### Image Generation
+
+| Skill | Description |
+|-------|-------------|
+| `gemini-imagegen` | Generate and edit images using Google's Gemini API |
+
+**gemini-imagegen features:**
 - Text-to-image generation
 - Image editing and manipulation
 - Multi-turn refinement
-- Multiple reference image composition
+- Multiple reference image composition (up to 14 images)
 
 **Requirements:**
 - `GEMINI_API_KEY` environment variable
 - Python packages: `google-genai`, `pillow`
-
-**Usage:**
-```bash
-python scripts/generate_image.py "A cat wearing a wizard hat" output.png
-python scripts/edit_image.py input.png "Add a rainbow" output.png
-```
 
 ## Installation
 
 ```bash
 claude /plugin install compounding-engineering
 ```
+
+## Version History
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 ## License
 
