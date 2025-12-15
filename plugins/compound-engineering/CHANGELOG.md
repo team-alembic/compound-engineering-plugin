@@ -5,6 +5,12 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.0] - 2025-12-15
+
+### Added
+
+- **`dhh-rails-style` skill** - Write Ruby and Rails code in DHH's distinctive 37signals style. Router-pattern skill with sectioned references for controllers, models, frontend, architecture, and gems. Embodies REST purity, fat models, thin controllers, Current attributes, Hotwire patterns, and the "clarity over cleverness" philosophy. Based on analysis of Fizzy (Campfire) codebase.
+
 ## [2.12.0] - 2025-12-15
 
 ### Added
