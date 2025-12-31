@@ -96,18 +96,51 @@ For each skill discovered:
 - Check if any plan sections match the skill's domain
 - If there's a match, spawn a sub-agent to apply that skill's knowledge
 
-**Step 4: Launch sub-agents for matched skills**
+**Step 4: Spawn a sub-agent for EVERY matched skill**
 
-For each matched skill, launch a parallel Task:
+**CRITICAL: For EACH skill that matches, spawn a separate sub-agent and instruct it to USE that skill.**
+
+For each matched skill:
 ```
-Task general-purpose: "You have access to the [skill-name] skill. Apply its patterns and best practices to analyze [plan section]. Provide:
-- Skill-specific recommendations
-- Patterns from the skill's reference documentation
-- Anti-patterns the skill warns against
-- Concrete code examples following the skill's conventions"
+Task general-purpose: "You have the [skill-name] skill available at [skill-path].
+
+YOUR JOB: Use this skill on the plan.
+
+1. Read the skill: cat [skill-path]/SKILL.md
+2. Follow the skill's instructions exactly
+3. Apply the skill to this content:
+
+[relevant plan section or full plan]
+
+4. Return the skill's full output
+
+The skill tells you what to do - follow it. Execute the skill completely."
 ```
 
-**Run as many skill-based sub-agents as you find matches for. No limit.**
+**Spawn ALL skill sub-agents in PARALLEL:**
+- 1 sub-agent per matched skill
+- Each sub-agent reads and uses its assigned skill
+- All run simultaneously
+- 10, 20, 30 skill sub-agents is fine
+
+**Each sub-agent:**
+1. Reads its skill's SKILL.md
+2. Follows the skill's workflow/instructions
+3. Applies the skill to the plan
+4. Returns whatever the skill produces (code, recommendations, patterns, reviews, etc.)
+
+**Example spawns:**
+```
+Task general-purpose: "Use the dhh-rails-style skill at ~/.claude/plugins/.../dhh-rails-style. Read SKILL.md and apply it to: [Rails sections of plan]"
+
+Task general-purpose: "Use the frontend-design skill at ~/.claude/plugins/.../frontend-design. Read SKILL.md and apply it to: [UI sections of plan]"
+
+Task general-purpose: "Use the agent-native-architecture skill at ~/.claude/plugins/.../agent-native-architecture. Read SKILL.md and apply it to: [agent/tool sections of plan]"
+
+Task general-purpose: "Use the security-patterns skill at ~/.claude/skills/security-patterns. Read SKILL.md and apply it to: [full plan]"
+```
+
+**No limit on skill sub-agents. Spawn one for every skill that could possibly be relevant.**
 
 ### 3. Launch Per-Section Research Agents
 
@@ -198,20 +231,37 @@ Task [agent-name]: "Review this plan using your expertise. Apply all your checks
 
 Research agents (like `best-practices-researcher`, `framework-docs-researcher`, `git-history-analyzer`, `repo-research-analyst`) should also be run for relevant plan sections.
 
-### 5. Collect and Synthesize Research
+### 5. Wait for ALL Agents and Synthesize Everything
 
 <thinking>
-Wait for all parallel agents to complete, then synthesize their findings into actionable enhancements for each section.
+Wait for ALL parallel agents to complete - skills, research agents, review agents, everything. Then synthesize all findings into a comprehensive enhancement.
 </thinking>
 
-**For each agent's findings:**
-- [ ] Extract concrete recommendations
-- [ ] Note specific code patterns or examples
-- [ ] Identify performance metrics or benchmarks
-- [ ] List relevant documentation links
-- [ ] Capture edge cases discovered
+**Collect outputs from ALL sources:**
 
-### 4. Enhance Plan Sections
+1. **Skill-based sub-agents** - Each skill's full output (code examples, patterns, recommendations)
+2. **Research agents** - Best practices, documentation, real-world examples
+3. **Review agents** - All feedback from every reviewer (architecture, security, performance, simplicity, etc.)
+4. **Context7 queries** - Framework documentation and patterns
+5. **Web searches** - Current best practices and articles
+
+**For each agent's findings, extract:**
+- [ ] Concrete recommendations (actionable items)
+- [ ] Code patterns and examples (copy-paste ready)
+- [ ] Anti-patterns to avoid (warnings)
+- [ ] Performance considerations (metrics, benchmarks)
+- [ ] Security considerations (vulnerabilities, mitigations)
+- [ ] Edge cases discovered (handling strategies)
+- [ ] Documentation links (references)
+- [ ] Skill-specific patterns (from matched skills)
+
+**Deduplicate and prioritize:**
+- Merge similar recommendations from multiple agents
+- Prioritize by impact (high-value improvements first)
+- Flag conflicting advice for human review
+- Group by plan section
+
+### 6. Enhance Plan Sections
 
 <thinking>
 Merge research findings back into the plan, adding depth without changing the original structure.
